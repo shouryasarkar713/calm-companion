@@ -10,6 +10,8 @@ import DashboardPage from "./pages/DashboardPage";
 import JournalPage from "./pages/JournalPage";
 import ExercisesPage from "./pages/ExercisesPage";
 import NotFound from "./pages/NotFound";
+import AppLayout from "./components/layout/AppLayout";
+import HomepageLayout from "./components/layout/HomepageLayout";
 
 const queryClient = new QueryClient();
 
@@ -21,10 +23,26 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/chat" element={<ChatPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/journal" element={<JournalPage />} />
-          <Route path="/exercises" element={<ExercisesPage />} />
+          <Route path="/chat" element={
+            <AppLayout>
+              <ChatPage />
+            </AppLayout>
+          } />
+          <Route path="/dashboard" element={
+            <AppLayout>
+              <DashboardPage />
+            </AppLayout>
+          } />
+          <Route path="/journal" element={
+            <AppLayout>
+              <JournalPage />
+            </AppLayout>
+          } />
+          <Route path="/exercises" element={
+            <AppLayout>
+              <ExercisesPage />
+            </AppLayout>
+          } />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
