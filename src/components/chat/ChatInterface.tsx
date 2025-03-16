@@ -1,7 +1,7 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { Send, Loader, Mic, Volume2, VolumeX, Image, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "@/hooks/use-toast";
 
 type MessageType = "text" | "suggestion" | "exercise" | "image";
 type EmotionTone = "neutral" | "positive" | "negative" | "anxious" | "calm";
@@ -42,7 +42,6 @@ const ChatInterface = () => {
     scrollToBottom();
   }, [messages]);
 
-  // Detect emotion based on input text - simple implementation
   const detectEmotion = (text: string): EmotionTone => {
     const lowerText = text.toLowerCase();
     
@@ -59,12 +58,9 @@ const ChatInterface = () => {
     return "neutral";
   };
 
-  // Speech recognition functionality
   const toggleListening = () => {
     if (!isListening) {
       setIsListening(true);
-      // In a real app, we would integrate with the Web Speech API here
-      // For demo purposes, we'll simulate voice input after a delay
       setTimeout(() => {
         setInput("I'm feeling a bit anxious today");
         setIsListening(false);
@@ -74,7 +70,6 @@ const ChatInterface = () => {
     }
   };
 
-  // Text-to-speech functionality
   const speakMessage = (message: string) => {
     if ('speechSynthesis' in window) {
       setIsSpeaking(!isSpeaking);
@@ -88,7 +83,39 @@ const ChatInterface = () => {
     }
   };
 
-  const handleSend = (e: React.FormEvent) => {
+  const sendMessageToBackend = async (userMessage: string) => {
+    try {
+      setIsLoading(true);
+      
+      const response = await fetch('http://localhost:5000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userMessage }),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      return data.response || "Sorry, I couldn't process your request.";
+    } catch (error) {
+      console.error("Error sending message to backend:", error);
+      toast({
+        title: "Communication Error",
+        description: "Could not connect to the assistant. Please try again later.",
+        variant: "destructive",
+      });
+      return "I'm having trouble connecting right now. Please try again later.";
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!input.trim()) return;
@@ -96,7 +123,6 @@ const ChatInterface = () => {
     const detectedEmotion = detectEmotion(input);
     setCurrentEmotion(detectedEmotion);
     
-    // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
       content: input,
@@ -107,73 +133,23 @@ const ChatInterface = () => {
     
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
-    setIsLoading(true);
     
-    // Simulate AI response based on detected emotion
-    setTimeout(() => {
-      let aiResponse: Message;
-      
-      if (detectedEmotion === "anxious") {
-        aiResponse = {
-          id: Date.now().toString(),
-          content: "I notice you're feeling anxious. Would you like to try a quick breathing exercise to help calm your mind?",
-          isUser: false,
-          type: "suggestion",
-          emotionTone: "calm"
-        };
-      } else if (detectedEmotion === "negative") {
-        aiResponse = {
-          id: Date.now().toString(),
-          content: "I'm sorry you're feeling down. Sometimes writing about your feelings can help. Would you like to open the journal?",
-          isUser: false,
-          type: "suggestion",
-          emotionTone: "neutral"
-        };
-      } else {
-        const responses = [
-          "I understand how you're feeling. What's been on your mind lately?",
-          "That's completely valid. Would you like to explore some coping strategies?",
-          "I hear you. Remember that it's okay to have these feelings.",
-          "Thank you for sharing. Would you like to try a quick mindfulness exercise?",
-          "I'm here to support you. Let's work through this together."
-        ];
-        
-        aiResponse = {
-          id: Date.now().toString(),
-          content: responses[Math.floor(Math.random() * responses.length)],
-          isUser: false,
-          type: "text",
-          emotionTone: "neutral"
-        };
-      }
-      
-      setMessages((prev) => [...prev, aiResponse]);
-      
-      // For anxious users, also suggest a breathing exercise after a short delay
-      if (detectedEmotion === "anxious") {
-        setTimeout(() => {
-          const exerciseSuggestion: Message = {
-            id: Date.now().toString(),
-            content: "Try this breathing exercise: Breathe in for 4 counts, hold for 2, exhale for 6. This helps activate your parasympathetic nervous system.",
-            isUser: false,
-            type: "exercise",
-            emotionTone: "calm",
-            imageUrl: "/placeholder.svg" // In a real app, this would be a GIF or image showing the exercise
-          };
-          
-          setMessages((prev) => [...prev, exerciseSuggestion]);
-        }, 1000);
-      }
-      
-      setIsLoading(false);
-    }, 1500);
+    const aiResponseContent = await sendMessageToBackend(input);
+    
+    const aiResponse: Message = {
+      id: (Date.now() + 1).toString(),
+      content: aiResponseContent,
+      isUser: false,
+      type: "text",
+      emotionTone: "neutral"
+    };
+    
+    setMessages((prev) => [...prev, aiResponse]);
   };
 
-  // Get appropriate bubble style based on message type and emotion
   const getBubbleStyle = (message: Message) => {
     const baseStyles = message.isUser ? "chat-bubble-user" : "chat-bubble-ai";
     
-    // Add emotion-based styling
     if (!message.isUser) {
       if (message.type === "suggestion") {
         return cn(baseStyles, "bg-primary/20 border border-primary/30");
@@ -184,7 +160,6 @@ const ChatInterface = () => {
       }
     }
     
-    // Add emotion-based styling for user messages
     if (message.emotionTone === "positive") {
       return cn(baseStyles, "bg-green-500 dark:bg-green-600");
     } else if (message.emotionTone === "negative") {
