@@ -1,69 +1,130 @@
-# Welcome to your Lovable project
+# Mental Health Assistant Chatbot
 
-## Project info
+An AI-powered mental health assistant designed to provide empathetic support, guided exercises, and valuable resources for users. The project features a dynamic frontend built with React and a robust backend using Flask, integrated with Azure OpenAI services and the MOYA framework to orchestrate multiple specialized agents.
 
-**URL**: https://lovable.dev/projects/af47a94f-962f-4efe-89bd-4404fd2abdd9
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies](#technologies)
+- [File Structure](#file-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration & Environment Variables](#configuration--environment-variables)
+- [Contributing](#contributing)
+- [License](#license)
 
-## How can I edit this code?
+## Overview
+The Mental Health Assistant Chatbot offers immediate, compassionate support through a conversational AI. It not only provides textual interactions with emotion detection but also includes:
 
-There are several ways of editing your application.
+- **Interactive Exercises**: Guided exercises (e.g., deep breathing, journaling, CBT techniques) to help users manage anxiety, depression, and stress.
+- **Help Section**: Quick links to professional resources, crisis helplines, and therapist connection options.
 
-**Use Lovable**
+The project leverages the MOYA framework to manage and orchestrate various agents that focus on different aspects of mental health:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/af47a94f-962f-4efe-89bd-4404fd2abdd9) and start prompting.
+- **Active Listening Agent**: Engages users with empathetic responses.
+- **Guided Coping Agent**: Offers mindfulness, CBT, and stress management strategies.
+- **Multi-Disciplinary Agent**: Provides holistic advice across wellness, career, and behavioral health.
+- **Privacy Guard Agent**: Ensures user data confidentiality.
+- **Resource Navigation Agent**: Helps locate local support resources.
+- **Critical Condition Agent**: Provides urgent assistance and crisis management.
+- **Classifier Agent**: Routes user messages to the most appropriate support agent.
 
-Changes made via Lovable will be committed automatically to this repo.
+## Features
+- **Chat Interface**: A responsive React UI that supports text input, voice input (simulated), and text-to-speech output.
+- **Emotion Detection**: Analyzes user messages to adjust response tone based on detected emotions (positive, negative, anxious, calm, or neutral).
+- **Interactive Exercises**: Engaging exercise cards (e.g., deep breathing, journaling, CBT techniques) with hover effects and call-to-action buttons.
+- **Help Resources**: Links to professional mental health resources and emergency contacts, along with a "TherapistConnect" component for immediate help.
+- **Multi-Agent Orchestration**: A backend system that routes user messages through a set of specialized agents using the MOYA framework and Azure OpenAI.
 
-**Use your preferred IDE**
+## Technologies
+- **Frontend**: React, TypeScript, React Router, Lucide React icons, custom utility functions for styling.
+- **Backend**: Python, Flask, MOYA framework components (agents, classifiers, orchestrator), Azure OpenAI API integration.
+- **APIs & Services**: Azure OpenAI for natural language processing; IP geolocation for resource localization.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## File Structure
+```
+/project-root
+├── frontend
+│   ├── components
+│   │   ├── ChatInterface.tsx           # Main chat interface component
+│   │   ├── ExerciseCard.tsx            # Interactive exercise card component
+│   │   ├── ExerciseGrid.tsx            # Grid layout for exercises
+│   │   └── TherapistConnect.tsx        # Help section with links and emergency contacts
+│   ├── hooks
+│   │   └── use-toast.ts                # Toast notification hook
+│   └── lib
+│       └── utils.ts                    # Utility functions (e.g., className concatenation)
+├── backend
+│   └── appi.py                         # Flask API that orchestrates agent responses
+├── README.md                           # This documentation file
+└── package.json                        # Frontend dependencies and scripts
 ```
 
-**Edit a file directly in GitHub**
+## Installation
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Prerequisites
+- **Node.js and npm/yarn**: For the frontend.
+- **Python 3.7+ and pip**: For the backend.
+- **Azure OpenAI API Key**: Ensure you have your API key and endpoint details ready.
+- **Optional**: Environment for managing environment variables (e.g., dotenv).
 
-**Use GitHub Codespaces**
+### Frontend Setup
+Navigate to the frontend folder:
+```bash
+cd frontend
+```
+Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+Start the development server:
+```bash
+npm start
+# or
+yarn start
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Backend Setup
+Navigate to the backend folder:
+```bash
+cd backend
+```
+Create a virtual environment and activate it:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
+Install required packages:
+```bash
+pip install -r requirements.txt
+```
+Run the Flask application:
+```bash
+python appi.py
+```
 
-## What technologies are used for this project?
+## Usage
+- **Chat Interface**: The frontend displays a chat window where users can type messages, use simulated voice input, and listen to the chatbot’s responses.
+- **Interactive Exercises**: Navigate through the interactive exercise cards to start guided mindfulness, CBT, or journaling exercises.
+- **Help Section**: Click on the resource links to access professional mental health resources, call helplines, or book sessions.
 
-This project is built with .
+## Configuration & Environment Variables
+For security, sensitive configuration values (like API keys) should be stored in environment variables. You can create a `.env` file in your backend directory:
+```ini
+AZURE_API_KEY=your_azure_openai_api_key_here
+AZURE_API_BASE=https://aoi-iiit-hack-2.openai.azure.com/
+```
+Be sure to update the backend code in `appi.py` to read these variables instead of hardcoding them.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Contributing
+Contributions are welcome! Please follow these steps:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Commit your changes with clear messages.
+4. Open a pull request with a description of your changes.
 
-## How can I deploy this project?
+## License
+This project is licensed under the MIT License.
 
-Simply open [Lovable](https://lovable.dev/projects/af47a94f-962f-4efe-89bd-4404fd2abdd9) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
