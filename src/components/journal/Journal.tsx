@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Calendar, Save, Plus, Trash2, Mic, Volume2, Tag, BookOpen, Download, MoodHappy, MoodSad, Clock } from "lucide-react";
+import { Calendar, Save, Plus, Trash2, Mic, Volume2, Tag, BookOpen, Download, Smile, Frown, Clock } from "lucide-react";
 
 interface JournalEntry {
   id: string;
@@ -26,11 +26,11 @@ const journalPrompts = [
 ];
 
 const moodOptions = [
-  { value: "happy", label: "Happy", icon: <MoodHappy size={18} className="text-green-500" /> },
-  { value: "calm", label: "Calm", icon: <MoodHappy size={18} className="text-blue-500" /> },
-  { value: "anxious", label: "Anxious", icon: <MoodSad size={18} className="text-amber-500" /> },
-  { value: "sad", label: "Sad", icon: <MoodSad size={18} className="text-indigo-500" /> },
-  { value: "angry", label: "Angry", icon: <MoodSad size={18} className="text-red-500" /> }
+  { value: "happy", label: "Happy", icon: <Smile size={18} className="text-green-500" /> },
+  { value: "calm", label: "Calm", icon: <Smile size={18} className="text-blue-500" /> },
+  { value: "anxious", label: "Anxious", icon: <Frown size={18} className="text-amber-500" /> },
+  { value: "sad", label: "Sad", icon: <Frown size={18} className="text-indigo-500" /> },
+  { value: "angry", label: "Angry", icon: <Frown size={18} className="text-red-500" /> }
 ];
 
 const Journal = () => {
