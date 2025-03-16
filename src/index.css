@@ -83,6 +83,23 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+  
+  .eye-comfort {
+    --background: 225 25% 10%;
+    --foreground: 40 30% 95%;
+    
+    --primary: 45 100% 60%;
+    --primary-foreground: 10 50% 10%;
+    
+    --card: 228 20% 15%;
+    --card-foreground: 40 30% 95%;
+    
+    --border: 40 15% 20%;
+    --input: 40 15% 20%;
+    
+    --secondary: 40 15% 20%;
+    --secondary-foreground: 40 30% 95%;
+  }
 }
 
 @layer base {
@@ -93,6 +110,18 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Custom fonts */
+  @font-face {
+    font-family: 'Handwriting';
+    src: url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+    font-display: swap;
+  }
+  
+  .font-handwriting {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2em;
   }
 }
 
@@ -107,6 +136,40 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-primary/20 rounded-full hover:bg-primary/30;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
 }
 
@@ -160,5 +223,74 @@
   }
   50% {
     transform: scale(1.1);
+  }
+}
+
+/* Emotional state animations and UI elements */
+.emotion-pulse {
+  animation: emotion-pulse 3s infinite;
+}
+
+@keyframes emotion-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Focus mode - to hide distractions */
+.focus-mode .distraction {
+  @apply hidden;
+}
+
+.focus-mode .focus-content {
+  @apply max-w-2xl mx-auto;
+}
+
+/* Accessibility enhancements */
+.high-contrast {
+  --foreground: 0 0% 0%;
+  --background: 0 0% 100%;
+  --primary: 240 100% 50%;
+  --border: 0 0% 0%;
+}
+
+.high-contrast.dark {
+  --foreground: 0 0% 100%;
+  --background: 0 0% 0%;
+  --primary: 240 100% 70%;
+  --border: 0 0% 100%;
+}
+
+/* Voice feedback animation */
+.voice-wave {
+  position: relative;
+}
+
+.voice-wave::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--primary), 0.3) 0%, rgba(var(--primary), 0) 70%);
+  animation: voice-wave 1.5s ease-out infinite;
+}
+
+@keyframes voice-wave {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
   }
 }
