@@ -3,9 +3,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "./button";
+import UserMenu from "../auth/UserMenu";
+import { useAuth } from "@/contexts/AuthContext";
 
 const MainNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
   
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   
@@ -30,16 +33,27 @@ const MainNav = () => {
             {item.name}
           </Link>
         ))}
-        <Link to="/chat">
-          <Button className="cta-button ml-4">Start Your Journey</Button>
-        </Link>
+        {!isAuthenticated ? (
+          <Link to="/auth">
+            <Button className="cta-button ml-4">Start Your Journey</Button>
+          </Link>
+        ) : (
+          <Link to="/dashboard">
+            <Button className="cta-button ml-4">My Dashboard</Button>
+          </Link>
+        )}
       </nav>
       
-      {/* Mobile Menu Button */}
-      <div className="md:hidden flex items-center">
-        <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Toggle menu">
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </Button>
+      {/* User Menu */}
+      <div className="flex items-center gap-2">
+        <UserMenu />
+        
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center">
+          <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Toggle menu">
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </Button>
+        </div>
       </div>
       
       {/* Mobile Menu */}
@@ -67,9 +81,15 @@ const MainNav = () => {
                   {item.name}
                 </Link>
               ))}
-              <Link to="/chat" onClick={toggleMenu}>
-                <Button className="cta-button mt-4">Start Your Journey</Button>
-              </Link>
+              {!isAuthenticated ? (
+                <Link to="/auth" onClick={toggleMenu}>
+                  <Button className="cta-button mt-4">Start Your Journey</Button>
+                </Link>
+              ) : (
+                <Link to="/dashboard" onClick={toggleMenu}>
+                  <Button className="cta-button mt-4">My Dashboard</Button>
+                </Link>
+              )}
             </nav>
           </div>
         </div>

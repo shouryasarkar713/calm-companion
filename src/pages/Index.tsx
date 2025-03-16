@@ -19,10 +19,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import HomepageLayout from "../components/layout/HomepageLayout";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     setMounted(true);
@@ -157,12 +159,21 @@ const Index = () => {
                 Get personalized emotional support, guided exercises, and expert-backed tools for a healthier mind.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/chat">
-                  <Button className="cta-button">
-                    Start Your Journey
-                    <ArrowRight size={18} />
-                  </Button>
-                </Link>
+                {isAuthenticated ? (
+                  <Link to="/dashboard">
+                    <Button className="cta-button">
+                      Go to Dashboard
+                      <ArrowRight size={18} />
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/auth">
+                    <Button className="cta-button">
+                      Start Your Journey
+                      <ArrowRight size={18} />
+                    </Button>
+                  </Link>
+                )}
                 <Link to="/#features">
                   <Button variant="outline" className="cta-button-secondary">
                     Learn More
