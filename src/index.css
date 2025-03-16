@@ -1,11 +1,12 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11.2%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -13,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 210 100% 50%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -32,36 +33,29 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
-
+    --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 225 25% 7%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 228 22% 13%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 228 22% 13%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
+    --primary: 210 100% 50%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -79,7 +73,8 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
+    
+    --sidebar-background: 225 25% 7%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
@@ -97,5 +92,73 @@
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-background/50 backdrop-blur-lg border border-border/50 shadow-sm;
+  }
+
+  .glass-dark {
+    @apply dark:bg-background/30 dark:backdrop-blur-lg dark:border-border/10 dark:shadow-md;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.chat-bubble-user {
+  @apply bg-primary text-primary-foreground p-3 rounded-2xl rounded-br-none max-w-[75%] shadow-sm animate-fade-in;
+}
+
+.chat-bubble-ai {
+  @apply bg-card text-card-foreground p-3 rounded-2xl rounded-bl-none max-w-[75%] shadow-sm animate-fade-in;
+}
+
+.card-hover {
+  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-md;
+}
+
+.exercise-card {
+  @apply bg-card rounded-2xl p-6 shadow-sm card-hover;
+}
+
+.journal-card {
+  @apply glass glass-dark rounded-2xl p-6 card-hover;
+}
+
+.page-transition {
+  @apply animate-fade-in;
+}
+
+.page-container {
+  @apply container max-w-4xl mx-auto px-4 py-6;
+}
+
+.bottom-nav {
+  @apply fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-lg border-t border-border/50 py-2 px-4 flex justify-around z-50;
+}
+
+.nav-item {
+  @apply flex flex-col items-center justify-center text-muted-foreground transition-colors duration-200;
+}
+
+.nav-item.active {
+  @apply text-primary;
+}
+
+.breathe-animation {
+  animation: breathe 5s infinite ease-in-out;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
   }
 }
