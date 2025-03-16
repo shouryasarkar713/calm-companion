@@ -1,5 +1,5 @@
 
-import { Lungs, BookOpen, Brain, HeartPulse, Footprints, Plant } from "lucide-react";
+import { Wind, BookOpen, Brain, Heart, Footprints, Leaf } from "lucide-react";
 import { Link } from "react-router-dom";
 import TherapistConnect from "../help/TherapistConnect";
 
@@ -33,7 +33,7 @@ const ExerciseGrid = () => {
     {
       title: "Deep Breathing",
       description: "Calm your mind with guided breathing exercises",
-      icon: <Lungs size={24} className="text-primary" />,
+      icon: <Wind size={24} className="text-primary" />,
       duration: "5 mins",
       link: "/exercises/breathing",
     },
@@ -54,7 +54,7 @@ const ExerciseGrid = () => {
     {
       title: "Mindfulness",
       description: "Bring awareness to the present moment",
-      icon: <HeartPulse size={24} className="text-primary" />,
+      icon: <Heart size={24} className="text-primary" />,
       duration: "10 mins",
       link: "/exercises/mindfulness",
     },
@@ -68,7 +68,7 @@ const ExerciseGrid = () => {
     {
       title: "Self-Compassion",
       description: "Practice kindness and understanding toward yourself",
-      icon: <Plant size={24} className="text-primary" />,
+      icon: <Leaf size={24} className="text-primary" />,
       duration: "10 mins",
       link: "/exercises/compassion",
     },
