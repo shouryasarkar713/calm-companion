@@ -34,7 +34,7 @@ def create_active_listening_agent(tool_registry):
         ),
         llm_config={'temperature': 0.7},
         model_name="gpt-4o",
-        # api_key="GKCraQ3njQHy2ESzLrecmyBgQfzjZzOEsz2e9YkIQ9jJ7654kd9zJQQJ99BCACHYHv6XJ3w3AAABACOGobr2",
+        # api_key=your_azure_openai_api_key_here,
         api_base="https://aoi-iiit-hack-2.openai.azure.com/",
         api_version="2024-12-01-preview"
     )
@@ -53,7 +53,7 @@ def create_guided_coping_agent(tool_registry):
         ),
         llm_config={'temperature': 0.7},
         model_name="gpt-4o",
-        # api_key="GKCraQ3njQHy2ESzLrecmyBgQfzjZzOEsz2e9YkIQ9jJ7654kd9zJQQJ99BCACHYHv6XJ3w3AAABACOGobr2",
+        # api_key=your_azure_openai_api_key_here,
         api_base="https://aoi-iiit-hack-2.openai.azure.com/",
         api_version="2024-12-01-preview"
     )
@@ -75,7 +75,7 @@ def create_multi_disciplinary_agent(tool_registry):
         ),
         llm_config={'temperature': 0.7},
         model_name="gpt-4o",
-        # api_key="GKCraQ3njQHy2ESzLrecmyBgQfzjZzOEsz2e9YkIQ9jJ7654kd9zJQQJ99BCACHYHv6XJ3w3AAABACOGobr2",
+        # api_key=your_azure_openai_api_key_here,
         api_base="https://aoi-iiit-hack-2.openai.azure.com/",
         api_version="2024-12-01-preview"
     )
@@ -93,7 +93,7 @@ def create_privacy_guard_agent(tool_registry):
         ),
         llm_config={'temperature': 0.7},
         model_name="gpt-4o",
-        # api_key="GKCraQ3njQHy2ESzLrecmyBgQfzjZzOEsz2e9YkIQ9jJ7654kd9zJQQJ99BCACHYHv6XJ3w3AAABACOGobr2",
+        # api_key=your_azure_openai_api_key_here,
         api_base="https://aoi-iiit-hack-2.openai.azure.com/",
         api_version="2024-12-01-preview"
     )
@@ -137,7 +137,7 @@ def create_resource_navigation_agent(tool_registry):
         system_prompt=system_prompt,
         llm_config={'temperature': 0.7},
         model_name="gpt-4o",
-        # api_key="GKCraQ3njQHy2ESzLrecmyBgQfzjZzOEsz2e9YkIQ9jJ7654kd9zJQQJ99BCACHYHv6XJ3w3AAABACOGobr2",
+        # api_key=your_azure_openai_api_key_here,
         api_base="https://aoi-iiit-hack-2.openai.azure.com/",
         api_version="2024-12-01-preview"
     )
@@ -170,7 +170,7 @@ def create_critical_condition_agent(tool_registry):
         ),
         llm_config={'temperature': 0.7},
         model_name="gpt-4o",
-        # api_key="GKCraQ3njQHy2ESzLrecmyBgQfzjZzOEsz2e9YkIQ9jJ7654kd9zJQQJ99BCACHYHv6XJ3w3AAABACOGobr2",
+        # api_key=your_azure_openai_api_key_here,
         api_base="https://aoi-iiit-hack-2.openai.azure.com/",
         api_version="2024-12-01-preview"
     )
@@ -195,7 +195,7 @@ def create_classifier_agent():
         tool_registry=None,
         model_name="gpt-4o",
         system_prompt=system_prompt,
-        # api_key="GKCraQ3njQHy2ESzLrecmyBgQfzjZzOEsz2e9YkIQ9jJ7654kd9zJQQJ99BCACHYHv6XJ3w3AAABACOGobr2",
+        # api_key=your_azure_openai_api_key_here,
         api_base="https://aoi-iiit-hack-2.openai.azure.com/",
         api_version="2024-12-01-preview"
     )
